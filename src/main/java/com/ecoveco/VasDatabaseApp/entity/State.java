@@ -11,7 +11,6 @@ public class State {
     @Id
     private String uf;
     private String name;
-
     @OneToMany(mappedBy = "state")
     private List<City> cities;
 
