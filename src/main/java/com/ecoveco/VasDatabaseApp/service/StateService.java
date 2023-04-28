@@ -18,7 +18,7 @@ public class StateService {
         this.stateMapper = stateMapper;
     }
 
-    public List<StateDTO> getAll() {
+    public List<StateDTO> getAllStates() {
         return stateRepository.findAll().stream().map(stateMapper::toDTO).collect(Collectors.toList());
     }
 }

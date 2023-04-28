@@ -52,7 +52,7 @@ public class LocalService {
         if(local.isEmpty()) {
             throw new ResourceNotFoundException("local with id " + localId + " does not exists");
         }
-//        updateLocalUsingDto(local.get(), updatedInfo);
+        updateLocalUsingDto(local.get(), updatedInfo);
         localRepository.save(local.get());
     }
 

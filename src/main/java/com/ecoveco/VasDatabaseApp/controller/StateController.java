@@ -1,7 +1,6 @@
 package com.ecoveco.VasDatabaseApp.controller;
 
 import com.ecoveco.VasDatabaseApp.dto.StateDTO;
-import com.ecoveco.VasDatabaseApp.entity.State;
 import com.ecoveco.VasDatabaseApp.service.StateService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +20,6 @@ public class StateController {
 
     @GetMapping("/")
     public List<StateDTO> getAll() {
-        return service.getAll();
+        return service.getAllStates();
     }
 }
