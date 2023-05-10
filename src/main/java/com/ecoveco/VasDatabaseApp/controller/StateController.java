@@ -18,7 +18,7 @@ public class StateController {
         this.service = stateService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<StateDTO> getAll() {
         return service.getAllStates();
     }

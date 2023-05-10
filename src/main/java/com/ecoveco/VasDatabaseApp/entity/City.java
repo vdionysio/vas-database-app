@@ -25,6 +25,11 @@ public class City {
         this.state = state;
     }
 
+    public City(Long id, String name, State state) {
+        this.name = name;
+        this.state = state;
+    }
+
     public Long getId() {
         return id;
     }
