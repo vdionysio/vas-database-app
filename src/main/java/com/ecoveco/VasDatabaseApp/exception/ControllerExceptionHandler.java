@@ -1,5 +1,6 @@
 package com.ecoveco.VasDatabaseApp.exception;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.hibernate.HibernateException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.dao.DataAccessException;
@@ -10,7 +11,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
+import java.nio.file.AccessDeniedException;
 import java.util.Date;
 import java.util.stream.Collectors;
 
@@ -50,5 +53,21 @@ public class ControllerExceptionHandler {
 
         return message;
     }
+//    @ResponseStatus(HttpStatus.NOT_FOUND)
+//    @ExceptionHandler(NoHandlerFoundException.class)
+//    public ErrorMessage handleNotFound(final HttpServletRequest request, final Exception error) {
+//        return ErrorMessage.from("Not Found");
+//    }
 
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(AccessDeniedException.class)
+    public ErrorMessage handleAccessDenied(WebRequest request, final Exception error) {
+        return new ErrorMessage(HttpStatus.FORBIDDEN.value(), new Date(), "Permission denied", request.getDescription(false));
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Throwable.class)
+    public ErrorMessage handleInternalError(WebRequest request, final Exception error) {
+        return new ErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR.value(), new Date(), error.getMessage(), request.getDescription(false));
+    }
 }
