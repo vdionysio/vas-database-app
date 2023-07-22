@@ -17,11 +17,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 class LocalityRepositoryTest {
 
-    private LocalRepository underTest;
+    private LocalityRepository underTest;
     private CityRepository cityRepository;
 
     @Autowired
-    public LocalityRepositoryTest(LocalRepository underTest, CityRepository cityRepository) {
+    public LocalityRepositoryTest(LocalityRepository underTest, CityRepository cityRepository) {
         this.underTest = underTest;
         this.cityRepository = cityRepository;
     }

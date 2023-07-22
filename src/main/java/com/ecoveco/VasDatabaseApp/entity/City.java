@@ -11,7 +11,7 @@ public class City {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "uf")
     private State state;
     @OneToMany(mappedBy = "city")
@@ -42,7 +42,7 @@ public class City {
         return state;
     }
 
-    public List<Locality> getLocals() {
+    public List<Locality> getLocalities() {
         return localities;
     }
 }

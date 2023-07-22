@@ -2,10 +2,12 @@ package com.ecoveco.VasDatabaseApp.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(uniqueConstraints = {
         @UniqueConstraint(name = "UniqueNameAndCityId", columnNames = {"name", "cityId"})
-    }
+}
 )
 public class Locality {
     @Id
@@ -16,7 +18,11 @@ public class Locality {
     @JoinColumn(name = "cityId")
     private City city;
 
-    protected Locality() {}
+    @OneToMany(mappedBy = "locality")
+    private List<Position> positions;
+
+    protected Locality() {
+    }
 
     public Locality(String name, City city) {
         this.name = name;
@@ -31,12 +37,12 @@ public class Locality {
         return name;
     }
 
-    public City getCity() {
-        return city;
-    }
-
     public void setName(String name) {
         this.name = name;
+    }
+
+    public City getCity() {
+        return city;
     }
 
     public void setCity(City city) {

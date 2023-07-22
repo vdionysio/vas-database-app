@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface LocalRepository extends JpaRepository<Locality, Long> {
+public interface LocalityRepository extends JpaRepository<Locality, Long> {
 
     List<Locality> findByCityId(Long cityId);
 }

@@ -1,6 +1,6 @@
 package com.ecoveco.VasDatabaseApp.mapper;
 
-import com.ecoveco.VasDatabaseApp.dto.LocalDTO;
+import com.ecoveco.VasDatabaseApp.dto.LocalityDTO;
 import com.ecoveco.VasDatabaseApp.entity.City;
 import com.ecoveco.VasDatabaseApp.entity.Locality;
 import com.ecoveco.VasDatabaseApp.entity.State;
@@ -14,15 +14,15 @@ class LocalityMapperTest {
     @DisplayName("Convert a Local Entity to a DTO successfully")
     void testConvertLocalToDTO() {
         // given
-        LocalMapper underTest = new LocalMapper();
+        LocalityMapper underTest = new LocalityMapper();
         State state = new State("RS", "Rio Grande do Sul");
         City city = new City(1L, "Rio Grande", state);
         Locality locality = new Locality("Saco da Mangueira", city);
 
         // when
-        LocalDTO localDTO = underTest.toDTO(locality);
+        LocalityDTO localityDTO = underTest.toDTO(locality);
 
         // then
-        assertThat(localDTO).hasOnlyFields("id", "name", "cityId");
+        assertThat(localityDTO).hasOnlyFields("id", "name", "cityId");
     }
 }

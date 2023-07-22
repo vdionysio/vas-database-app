@@ -1,13 +1,12 @@
 package com.ecoveco.VasDatabaseApp.service;
 
-import com.ecoveco.VasDatabaseApp.dto.LocalDTO;
-import com.ecoveco.VasDatabaseApp.dto.LocalFormDTO;
+import com.ecoveco.VasDatabaseApp.dto.LocalityFormDTO;
 import com.ecoveco.VasDatabaseApp.entity.City;
 import com.ecoveco.VasDatabaseApp.entity.State;
 import com.ecoveco.VasDatabaseApp.exception.ResourceNotFoundException;
-import com.ecoveco.VasDatabaseApp.mapper.LocalMapper;
+import com.ecoveco.VasDatabaseApp.mapper.LocalityMapper;
 import com.ecoveco.VasDatabaseApp.repository.CityRepository;
-import com.ecoveco.VasDatabaseApp.repository.LocalRepository;
+import com.ecoveco.VasDatabaseApp.repository.LocalityRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,28 +25,28 @@ import static org.mockito.Mockito.*;
 class LocalityServiceTest {
 
     @Mock
-    private LocalRepository localRepository;
+    private LocalityRepository localityRepository;
 
     @Mock
     private CityRepository cityRepository;
 
-    private LocalMapper localMapper = new LocalMapper();
+    private LocalityMapper localityMapper = new LocalityMapper();
 
-    private LocalService underTest;
+    private LocalityService underTest;
 
     @BeforeEach
     void setUp() {
-        underTest = new LocalService(localRepository, localMapper, cityRepository);
+        underTest = new LocalityService(localityRepository, localityMapper, cityRepository);
     }
 
     @Test
     @DisplayName("Get all locals from a given City ID")
     void testGetLocalsByCity() {
         // when
-        underTest.getByCity(4950L);
+        underTest.getByCityId(4950L);
 
         // then
-        verify(localRepository).findByCityId(4950L);
+        verify(localityRepository).findByCityId(4950L);
     }
 
     @Test
@@ -55,29 +54,29 @@ class LocalityServiceTest {
     void testAddLocalWithValidCityId() {
         // Given
         City city = new City("Rio grande", new State("RS", "Rio Grande do Sul"));
-        LocalFormDTO localFormDTO = new LocalFormDTO(1L, "Saco do Justino", 4950L);
+        LocalityFormDTO localityFormDTO = new LocalityFormDTO(1L, "Saco do Justino", 4950L);
 
         // when
         when(cityRepository.findById(anyLong())).thenReturn(Optional.of(city));
-        underTest.addLocal(localFormDTO);
+        underTest.addLocality(localityFormDTO);
 
         // then
-        verify(localRepository).save(any());
+        verify(localityRepository).save(any());
     }
 
     @Test
     @DisplayName("Add a local with valid City Id")
     void testAddLocalWithInvalidCityId() {
         // Given
-        LocalFormDTO localFormDTO = new LocalFormDTO(1L, "Saco do Justino", 4950L);
+        LocalityFormDTO localityFormDTO = new LocalityFormDTO(1L, "Saco do Justino", 4950L);
 
         // when
         when(cityRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         // then
-        assertThatThrownBy(() -> underTest.addLocal(localFormDTO))
+        assertThatThrownBy(() -> underTest.addLocality(localityFormDTO))
                 .isInstanceOf(ResourceNotFoundException.class)
-                .hasMessageContaining("city with id " + localFormDTO.getCityId() + " does not exists");
-        verify(localRepository, never()).save(any());
+                .hasMessageContaining("city with id " + localityFormDTO.getCityId() + " does not exists");
+        verify(localityRepository, never()).save(any());
     }
 }
