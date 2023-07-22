@@ -15,7 +15,7 @@ public class City {
     @JoinColumn(name = "uf")
     private State state;
     @OneToMany(mappedBy = "city")
-    private List<Local> locals;
+    private List<Locality> localities;
 
     protected City() {
     }
@@ -42,7 +42,7 @@ public class City {
         return state;
     }
 
-    public List<Local> getLocals() {
-        return locals;
+    public List<Locality> getLocals() {
+        return localities;
     }
 }

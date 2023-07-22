@@ -3,7 +3,7 @@ package com.ecoveco.VasDatabaseApp.service;
 import com.ecoveco.VasDatabaseApp.dto.LocalDTO;
 import com.ecoveco.VasDatabaseApp.dto.LocalFormDTO;
 import com.ecoveco.VasDatabaseApp.entity.City;
-import com.ecoveco.VasDatabaseApp.entity.Local;
+import com.ecoveco.VasDatabaseApp.entity.Locality;
 import com.ecoveco.VasDatabaseApp.exception.ResourceNotFoundException;
 import com.ecoveco.VasDatabaseApp.mapper.LocalMapper;
 import com.ecoveco.VasDatabaseApp.repository.CityRepository;
@@ -37,7 +37,7 @@ public class LocalService {
             throw new ResourceNotFoundException("city with id " + localDto.getCityId() + " does not exists");
         }
 
-        localRepository.save(new Local(localDto.getName(), city.get()));
+        localRepository.save(new Locality(localDto.getName(), city.get()));
     }
 
     public void deleteLocal(Long localId) {
@@ -48,7 +48,7 @@ public class LocalService {
     }
 
     public void editLocal(Long localId, LocalFormDTO updatedInfo) {
-        Optional<Local> local = localRepository.findById(localId);
+        Optional<Locality> local = localRepository.findById(localId);
         if(local.isEmpty()) {
             throw new ResourceNotFoundException("local with id " + localId + " does not exists");
         }
@@ -56,12 +56,12 @@ public class LocalService {
         localRepository.save(local.get());
     }
 
-    public void updateLocalUsingDto(Local local, LocalFormDTO updatedInfo) {
+    public void updateLocalUsingDto(Locality locality, LocalFormDTO updatedInfo) {
         Optional<City> updatedCityId = cityRepository.findById(updatedInfo.getCityId());
         if(updatedCityId.isEmpty()) {
             throw new ResourceNotFoundException("city with id " + updatedInfo.getCityId() + " does not exists");
         }
-        local.setCity(updatedCityId.get());
-        local.setName(updatedInfo.getName());
+        locality.setCity(updatedCityId.get());
+        locality.setName(updatedInfo.getName());
     }
 }

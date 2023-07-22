@@ -7,7 +7,7 @@ import jakarta.persistence.*;
         @UniqueConstraint(name = "UniqueNameAndCityId", columnNames = {"name", "cityId"})
     }
 )
-public class Local {
+public class Locality {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,9 +16,9 @@ public class Local {
     @JoinColumn(name = "cityId")
     private City city;
 
-    protected Local() {}
+    protected Locality() {}
 
-    public Local(String name, City city) {
+    public Locality(String name, City city) {
         this.name = name;
         this.city = city;
     }

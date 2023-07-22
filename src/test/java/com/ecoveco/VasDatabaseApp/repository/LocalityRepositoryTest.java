@@ -1,7 +1,7 @@
 package com.ecoveco.VasDatabaseApp.repository;
 
 import com.ecoveco.VasDatabaseApp.entity.City;
-import com.ecoveco.VasDatabaseApp.entity.Local;
+import com.ecoveco.VasDatabaseApp.entity.Locality;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,13 +15,13 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-class LocalRepositoryTest {
+class LocalityRepositoryTest {
 
     private LocalRepository underTest;
     private CityRepository cityRepository;
 
     @Autowired
-    public LocalRepositoryTest(LocalRepository underTest, CityRepository cityRepository) {
+    public LocalityRepositoryTest(LocalRepository underTest, CityRepository cityRepository) {
         this.underTest = underTest;
         this.cityRepository = cityRepository;
     }
@@ -29,9 +29,9 @@ class LocalRepositoryTest {
     @BeforeEach
     void setUp() {
         City city = cityRepository.findById(4950L).get();
-        Local local1 = new Local("Saco da Quitéria", city);
-        Local local2 = new Local("Saco do Justino", city);
-        underTest.saveAll(Arrays.asList(local1, local2));
+        Locality locality1 = new Locality("Saco da Quitéria", city);
+        Locality locality2 = new Locality("Saco do Justino", city);
+        underTest.saveAll(Arrays.asList(locality1, locality2));
     }
 
     @AfterEach
@@ -43,10 +43,10 @@ class LocalRepositoryTest {
     @DisplayName("Find by City ID successfully")
     void testFindByValidCityId() {
         // when
-        List<Local> locals = underTest.findByCityId(4950L);
+        List<Locality> localities = underTest.findByCityId(4950L);
 
         // then
-        assertThat(locals).hasSize(2);
+        assertThat(localities).hasSize(2);
 
     }
 
